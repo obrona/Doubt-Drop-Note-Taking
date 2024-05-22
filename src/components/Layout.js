@@ -41,7 +41,7 @@ export function Layout({ children }) {
     const history = useHistory();
     const location = useLocation();
     const menuItems = [
-        {text: 'My Notes', icon: <SubjectOutlined color='secondary' />, path: '/'},
+        {text: 'My Notes', icon: <SubjectOutlined color='secondary' />, path: '/notes'},
         {text: 'Create Note', icon: <AddCircleOutline color='secondary' />, path: '/create'}
 
     ];

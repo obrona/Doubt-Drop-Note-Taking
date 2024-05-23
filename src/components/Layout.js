@@ -2,10 +2,12 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Drawer, Typography } from '@material-ui/core'
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { AddCircleOutline, SubjectOutlined } from '@material-ui/icons'
+import { AddCircleOutline, SubjectOutlined, AvTimerOutlined } from '@material-ui/icons'
 import { AppBar, Toolbar, Avatar } from '@material-ui/core'
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min'
 import { format } from 'date-fns'
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => (
@@ -42,7 +44,9 @@ export function Layout({ children }) {
     const location = useLocation();
     const menuItems = [
         {text: 'My Notes', icon: <SubjectOutlined color='secondary' />, path: '/notes'},
-        {text: 'Create Note', icon: <AddCircleOutline color='secondary' />, path: '/create'}
+        {text: 'Create Note', icon: <AddCircleOutline color='secondary' />, path: '/create'},
+        {text: 'Quotes', icon: <LibraryBooksIcon color='secondary' />, path: '/quotes'},
+        {text: 'Timer', icon: <AvTimerOutlined color='secondary' />, path: '/timer'}
 
     ];
     return (

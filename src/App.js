@@ -1,7 +1,10 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Notes from './pages/Notes'
 import Create from './pages/Create'
+import Quotes from './pages/Quotes'
 import { Layout } from './components/Layout'
+import PomodoroTimer from './timerComponents/PomodoroTimer'
+
 
 
 
@@ -9,7 +12,7 @@ import { Layout } from './components/Layout'
 function App() {
   return (
     
-    <Router>
+    <BrowserRouter>
       <Layout>
         <Switch>
           <Route exact path="/notes">
@@ -18,9 +21,15 @@ function App() {
           <Route exact path="/create">
             <Create />
           </Route>
+          <Route exact path='/quotes'>
+            <Quotes />
+          </Route>
+          <Route exact path='/timer'>
+            <PomodoroTimer />
+          </Route>
         </Switch>
       </Layout>
-    </Router>
+    </BrowserRouter>
     
   );
 }

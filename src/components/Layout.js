@@ -68,7 +68,7 @@ export function Layout({ children }) {
                 </div>
                 <List>
                     {menuItems.map(item => (
-                        <ListItem key={item.text} button onClick={() => history.push(item.path)} className={(location.pathname == item.path) ? classes.active : null}>
+                        <ListItem key={item.text} button onClick={() => history.push('/login' + item.path)} className={(location.pathname == item.path) ? classes.active : null}>
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText>{item.text}</ListItemText>
                         </ListItem>

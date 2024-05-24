@@ -56,8 +56,8 @@ export default function Notes() {
   return (
     <Container>
       <div className={classes.flex}>
-      <TextField placeholder='Search or input empty string to reset' className={classes.textField} onChange={(e) => setText(e.target.value)} />
-      <Button onClick={()=>handleSearch()}>Search</Button>
+        <TextField placeholder='Search or input empty string to reset' className={classes.textField} onChange={(e) => setText(e.target.value)} />
+        <Button onClick={()=>handleSearch()}>Search</Button>
       </div>
       <Masonry breakpointCols={breakpoints} className='my-masonry-grid' columnClassName='my-masonry-grid_column'>
         {notes.map(note => (<div key={note.id}>

@@ -1,0 +1,42 @@
+import { Paper, makeStyles, Grid, Avatar, TextField, FormControlLabel, Button, Typography } from "@material-ui/core";
+import { CheckBox } from "@material-ui/icons";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import { useState } from "react";
+import { Link, Redirect, useHistory } from 'react-router-dom'
+
+
+
+export default function SignIn({login, setLogin}) {
+    const paperStyle = {padding:20, height:'70vh', width:280, margin:'20px auto'}
+    const avatarStyle = {backgroundColor:'green'}
+    const history = useHistory()
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    
+    function handleLogin() {
+        console.log("login")
+        setLogin(true)
+        history.push('/login/notes')
+    }
+    return (
+        <Grid>
+            <Paper elevation={5} style={paperStyle}>
+                <Grid align='center'>
+                    <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
+                    <Typography variant='h5'>Sign Up</Typography>
+                </Grid>
+                <TextField label='Email' placeholder='Enter email' fullWidth required onChange={e => setEmail(e.target.value)}/>
+                <div style={{padding:'20px'}} />
+                <TextField label='Password' placeholder='Enter password' type='password' fullWidth required onChange={e => setPassword(e.target.value)}/>
+                <div style={{padding:'20px'}} />
+                <Button variant='contained' type='submit' color='primary' fullWidth onClick={() => handleLogin()}>Sign In</Button>
+                <Grid align='center'>
+                    <p style={{margin:'20px auto'}}>Not registered <Link to='/signUp'>Sign up here</Link></p>
+                </Grid>
+                
+                
+            </Paper>
+        </Grid>
+    )
+}

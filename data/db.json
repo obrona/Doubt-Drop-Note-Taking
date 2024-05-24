@@ -23,6 +23,24 @@
       "title": "Play games",
       "details": "Play elden ring",
       "category": "todos"
+    },
+    {
+      "id": "136a",
+      "title": "Clean room",
+      "details": "Sweep the room",
+      "category": "todos"
+    },
+    {
+      "id": "ce0f",
+      "title": "Do geog",
+      "details": "write essay",
+      "category": "todos"
+    },
+    {
+      "id": "beff",
+      "title": "Do geog",
+      "details": "Do geog",
+      "category": "todos"
     }
   ]
 }

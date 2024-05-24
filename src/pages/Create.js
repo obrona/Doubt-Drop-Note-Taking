@@ -38,7 +38,7 @@ export default function Create() {
     }
     if (title && details) {
       fetch('http://localhost:8000/notes', 
-        {method: 'POST', header: {'Content type': 'application/json'}, body: JSON.stringify({title, details, category})}).then(() => history.push('/'));
+        {method: 'POST', header: {'Content type': 'application/json'}, body: JSON.stringify({title, details, category})}).then(() => history.push('/login/notes'));
     }
   }
   

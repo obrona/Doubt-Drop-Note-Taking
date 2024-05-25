@@ -41,6 +41,12 @@
       "title": "Do geog",
       "details": "Do geog",
       "category": "todos"
+    },
+    {
+      "id": "19e6",
+      "title": "Buy food",
+      "details": "buy food from foodcourt",
+      "category": "reminder"
     }
   ]
 }

@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core'
-import { Drawer, Typography } from '@material-ui/core'
+import { Drawer, Typography, Button } from '@material-ui/core'
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import { AddCircleOutline, SubjectOutlined, AvTimerOutlined } from '@material-ui/icons'
 import { AppBar, Toolbar, Avatar } from '@material-ui/core'
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min'
 import { format } from 'date-fns'
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import UserContext from '../UserContext'
 
 const drawerWidth = 240;
 
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => (
 )
 
 export function Layout({ children }) {
+    const userContext = useContext(UserContext)
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
@@ -49,6 +51,11 @@ export function Layout({ children }) {
         {text: 'Timer', icon: <AvTimerOutlined color='secondary' />, path: '/timer'}
 
     ];
+
+    function signOut() {
+        userContext.setLogin(false)
+        history.push('/')
+    }
     return (
         <div className={classes.root}>
             <AppBar className={classes.appbar} elevation={0} color='default'>
@@ -59,7 +66,8 @@ export function Layout({ children }) {
                     <Typography>
                         Mario
                     </Typography>
-                    <Avatar src='dd.jpeg' className={classes.avatar} />
+                    <Avatar src='/dd.jpeg' className={classes.avatar} />
+                    <Button onClick={() => signOut()}>Sign Out</Button>
                 </Toolbar>
             </AppBar>
             <Drawer className={classes.drawer} variant='permanent' anchor='left' classes={{paper: classes.drawerPaper}}>

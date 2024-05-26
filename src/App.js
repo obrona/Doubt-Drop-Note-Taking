@@ -25,7 +25,7 @@ function App() {
           <SignIn login={login} setLogin={setLogin}/>
         </Route>
         <Route exact path='/signUp'>
-          <SignUp />
+          <SignUp login={login} setLogin={setLogin}/>
         </Route>
 
         <Route path='/login'>

@@ -17,7 +17,16 @@ export default function SignIn({login, setLogin}) {
     
     function handleLogin() {
         const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password).then(() => {setLogin(true); history.push('/login/notes')}).catch(err => console.log(err.message))
+        signInWithEmailAndPassword(auth, email, password).then((userCredentials) => {
+            const user = userCredentials.user
+            if (user.emailVerified) {
+                setLogin(true)
+                history.push('/login/notes')
+            } else {
+                alert('Email is not verified')
+            }
+            
+        }).catch(err => console.log(err.message))
         
        
     }

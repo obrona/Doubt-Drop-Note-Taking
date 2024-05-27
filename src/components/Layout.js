@@ -64,7 +64,7 @@ export function Layout({ children }) {
                         Today is {format(new Date(), 'do MMMM y')}
                     </Typography>
                     <Typography>
-                        Mario
+                        {userContext.email}
                     </Typography>
                     <Avatar src='/dd.jpeg' className={classes.avatar} />
                     <Button onClick={() => signOut()}>Sign Out</Button>

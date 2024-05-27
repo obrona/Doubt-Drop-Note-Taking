@@ -16,10 +16,10 @@ import react from 'react'
 
 
 function App() {
-  
-  const [login, setLogin] = useState(false);
+  const [email, setEmail] = useState('')
+  const [login, setLogin] = useState(false)
   return (
-    <UserContext.Provider value={{login: login, setLogin: setLogin}}>
+    <UserContext.Provider value={{login: login, setLogin: setLogin, email: email, setEmail: setEmail}}>
       <BrowserRouter>
         <Route exact path='/'>
           <SignIn login={login} setLogin={setLogin}/>

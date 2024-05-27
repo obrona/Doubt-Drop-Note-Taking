@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { makeStyles, Grid, Paper, Container, TextField, Button } from '@material-ui/core'
 import { NoteCard } from '../components/NoteCard'
 import Masonry from 'react-masonry-css'
+import { db, colRef } from '../firebase'
+import { getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
+import UserContext from '../UserContext'
 
 const useStyles = makeStyles({
   flex: {
@@ -16,22 +19,41 @@ const useStyles = makeStyles({
 });
 
 export default function Notes() {
+  const userContext = useContext(UserContext)
   const classes = useStyles();
   const [notes, setNotes] = useState([]);
   const [text, setText] = useState('');
   const [reset, setReset] = useState(false)
   
   // we only want to fetch 1 time, when we refresh the page, not everytime the page re-renders because of some small change like to a textfield
-  useEffect(() => {
+  /*useEffect(() => {
     fetch('http://localhost:8000/notes').then(res => res.json()).then(data => {
      
       setNotes(data)});
+  }, [reset])*/
+
+  useEffect(() => {
+    const notes = []
+    const q = query(colRef, where('email', '==', userContext.email))
+    getDocs(q).then(snapshot => {
+      snapshot.docs.forEach((d) => {
+        notes.push({...d.data(), id: d.id});
+        //console.log(d.id, d.data().title)
+      })
+    }).then(() => setNotes(notes))
   }, [reset])
 
-  async function handleDelete(id) {
+  /*async function handleDelete(id) {
     await fetch('http://localhost:8000/notes/' + id, {method: 'DELETE'})
     const newNotes = notes.filter(note => note.id != id)
     setNotes(newNotes)
+  }*/
+
+  function handleDelete2(id) {
+    const docRef = doc(db, 'Notes', id)
+    deleteDoc(docRef).then(() => {
+      setNotes(notes.filter(note => note.id != id))
+    })
   }
 
   
@@ -61,7 +83,7 @@ export default function Notes() {
       </div>
       <Masonry breakpointCols={breakpoints} className='my-masonry-grid' columnClassName='my-masonry-grid_column'>
         {notes.map(note => (<div key={note.id}>
-          <NoteCard note={note} handleDelete={handleDelete}/></div>))}
+          <NoteCard note={note} handleDelete={handleDelete2}/></div>))}
       </Masonry>
     </Container>
     

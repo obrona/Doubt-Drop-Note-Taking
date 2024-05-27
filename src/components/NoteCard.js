@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Avatar, Typography, makeStyles } from '@material-ui/core';
 import { Card, CardHeader, CardContent, IconButton } from '@material-ui/core'
 import { DeleteOutline } from '@material-ui/icons';
@@ -19,6 +19,8 @@ const useStyles = makeStyles({
 
 
 export function NoteCard({ note, handleDelete }) {
+    
+
     const classes = useStyles(note);
     return (
         <div>

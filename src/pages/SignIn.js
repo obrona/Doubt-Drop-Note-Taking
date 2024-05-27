@@ -1,13 +1,15 @@
 import { Paper, makeStyles, Grid, Avatar, TextField, FormControlLabel, Button, Typography } from "@material-ui/core";
 import { CheckBox } from "@material-ui/icons";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import UserContext from "../UserContext";
 
 
 
 export default function SignIn({login, setLogin}) {
+    const userContext = useContext(UserContext)
     const paperStyle = {padding:20, height:'70vh', width:280, margin:'20px auto'}
     const avatarStyle = {backgroundColor:'green'}
     const history = useHistory()
@@ -21,6 +23,7 @@ export default function SignIn({login, setLogin}) {
             const user = userCredentials.user
             if (user.emailVerified) {
                 setLogin(true)
+                userContext.setEmail(email)
                 history.push('/login/notes')
             } else {
                 alert('Email is not verified')

@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Typography, Button, ButtonGroup, Container } from '@material-ui/core'
 import { KeyboardArrowRight } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
 import { TextField, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+import { addDoc } from "firebase/firestore";
+import { db, colRef } from '../firebase.js' 
+import UserContext from '../UserContext.js';
 
 
 const useStyles = makeStyles({
@@ -18,6 +21,7 @@ const useStyles = makeStyles({
 })
 
 export default function Create() {
+  const userContext = useContext(UserContext)
   const classes = useStyles();
   const history = useHistory();
   const [title, setTitle] = useState('');
@@ -32,13 +36,17 @@ export default function Create() {
     setDetailsError(false);
     if (title == '') {
       setTitleError(true);
-    }
-    if (details == '') {
+    } else if (details == '') {
       setDetailsError(true);
-    }
-    if (title && details) {
+    } else {
       fetch('http://localhost:8000/notes', 
         {method: 'POST', header: {'Content type': 'application/json'}, body: JSON.stringify({title, details, category})}).then(() => history.push('/login/notes'));
+      addDoc(colRef, {
+        email: userContext.email,
+        title: title,
+        details: details,
+        category: category
+      })
     }
   }
   

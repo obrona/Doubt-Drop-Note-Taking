@@ -26,10 +26,15 @@ export default function SignIn({login, setLogin}) {
                 userContext.setEmail(email)
                 history.push('/login/notes')
             } else {
-                alert('Email is not verified')
+                alert('Email is not verified. Please check the email you sign up with for the verification email')
             }
             
-        }).catch(err => console.log(err.message))
+        }).catch(err => {
+            console.log(err.message);
+            alert('Invalid credentials');
+        })
+
+        
         
        
     }

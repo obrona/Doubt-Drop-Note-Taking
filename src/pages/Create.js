@@ -39,14 +39,14 @@ export default function Create() {
     } else if (details == '') {
       setDetailsError(true);
     } else {
-      fetch('http://localhost:8000/notes', 
-        {method: 'POST', header: {'Content type': 'application/json'}, body: JSON.stringify({title, details, category})}).then(() => history.push('/login/notes'));
+      //fetch('http://localhost:8000/notes', 
+      //  {method: 'POST', header: {'Content type': 'application/json'}, body: JSON.stringify({title, details, category})}).then(() => history.push('/login/notes'));
       addDoc(colRef, {
         email: userContext.email,
         title: title,
         details: details,
         category: category
-      })
+      }).then(() => history.push('/login/notes'))
     }
   }
   

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Drawer, Typography, Button } from '@material-ui/core'
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { AddCircleOutline, SubjectOutlined, AvTimerOutlined } from '@material-ui/icons'
+import { AddCircleOutline, SubjectOutlined, AvTimerOutlined, ChatOutlined } from '@material-ui/icons'
 import { AppBar, Toolbar, Avatar } from '@material-ui/core'
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min'
 import { format } from 'date-fns'
@@ -48,8 +48,8 @@ export function Layout({ children }) {
         {text: 'My Notes', icon: <SubjectOutlined color='secondary' />, path: '/notes'},
         {text: 'Create Note', icon: <AddCircleOutline color='secondary' />, path: '/create'},
         {text: 'Quotes', icon: <LibraryBooksIcon color='secondary' />, path: '/quotes'},
-        {text: 'Timer', icon: <AvTimerOutlined color='secondary' />, path: '/timer'}
-
+        {text: 'Timer', icon: <AvTimerOutlined color='secondary' />, path: '/timer'},
+        {text: 'Chat', icon: <ChatOutlined color='secondary' />, path: '/chat'}
     ];
 
     function signOut() {

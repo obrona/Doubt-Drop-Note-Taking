@@ -10,6 +10,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import UserContext from './UserContext'
 import react from 'react'
+import ChatContainer from './chatComponents/ChatContainer'
 
 
 
@@ -43,6 +44,9 @@ function App() {
               </Route>
               <Route exact path='/login/timer'>
                 <PomodoroTimer />
+              </Route>
+              <Route exact path='/login/chat'>
+                <ChatContainer />
               </Route>
             </Switch>
           </Layout>

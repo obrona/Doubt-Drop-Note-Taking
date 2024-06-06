@@ -9,8 +9,7 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import UserContext from './UserContext'
-import react from 'react'
-import ChatContainer from './chatComponents/ChatContainer'
+import Chat from './chatComponents/Chat'
 
 
 
@@ -30,7 +29,7 @@ function App() {
         </Route>
 
         <Route path='/login'>
-          {(login) ? 
+          {(true) ? 
           <Layout>
             <Switch>
               <Route exact path="/login/notes">
@@ -46,7 +45,7 @@ function App() {
                 <PomodoroTimer />
               </Route>
               <Route exact path='/login/chat'>
-                <ChatContainer />
+                <Chat />
               </Route>
             </Switch>
           </Layout>

@@ -121,7 +121,8 @@
 .inputtext_container {
     display: flex;
     justify-content: space-evenly;
-    align-items: center
+    align-items: center;
+   
 }
 
 .inputtext_container button {
@@ -142,5 +143,7 @@
     border-radius: 10px;
     border-width: 0;
     padding: 10px;
-    font-size: 18px,
+    font-size: 18px;
+    border: 2px solid black;
+    
 }

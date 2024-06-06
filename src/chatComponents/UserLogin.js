@@ -3,8 +3,10 @@ import { FaReact } from 'react-icons/fa6'
 import _ from 'lodash'
 
 import './style.css'
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function UserLogin({setUser, setMod}) {
+    const history = useHistory()
     const [username, setUsername] = useState('')
     const [module, setModule] = useState('')
     const handleUser = () => {
@@ -13,6 +15,7 @@ function UserLogin({setUser, setMod}) {
         setUser(username)
         setMod(module)
         localStorage.setItem('avatar', `https://picsum.photos/id/${_.random(1,1000)}/200/300`)
+        history.push('/login/chat/success')
     }
     return (
         <div className='login_container'>

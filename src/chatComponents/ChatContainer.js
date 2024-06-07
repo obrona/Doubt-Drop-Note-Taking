@@ -15,7 +15,7 @@ import UserContext from '../UserContext.js'
     const history = useHistory()
     const [user, setUser] = useState(userContext.email)
     const [mod, setMod] = useState(module)
-    const socketio = socketIOClient('http://localhost:3000') //socketIOClient('https://chatbackend.adaptable.app/')
+    const socketio = /*socketIOClient('http://localhost:3000')*/ socketIOClient('https://chatbackend.adaptable.app/')
     const [chats, setChats] = useState([])
     
     

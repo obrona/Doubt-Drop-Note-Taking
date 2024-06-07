@@ -29,7 +29,7 @@ function App() {
         </Route>
 
         <Route path='/login'>
-          {(true) ? 
+          {(login) ? 
           <Layout>
             <Switch>
               <Route exact path="/login/notes">

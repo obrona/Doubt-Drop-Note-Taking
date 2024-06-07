@@ -10,10 +10,10 @@ function Chat() {
     return (<BrowserRouter>
         <Switch>
             <Route exact path='/login/chat'>
-                <UserLogin setUser={setUser} setMod={setMod} />
+                <UserLogin setMod={setMod} />
             </Route>
             <Route exact path='/login/chat/success'>
-                <ChatContainer username={user} module={mod}/>
+                <ChatContainer module={mod}/>
             </Route>
 
         </Switch>

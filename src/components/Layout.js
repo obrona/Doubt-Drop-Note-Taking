@@ -72,7 +72,7 @@ export function Layout({ children }) {
             </AppBar>
             <Drawer className={classes.drawer} variant='permanent' anchor='left' classes={{paper: classes.drawerPaper}}>
                 <div>
-                    <Typography variant='h5' className={classes.title}>Ninja Notes</Typography>
+                    <Typography variant='h5' className={classes.title}>Doubt Drop</Typography>
                 </div>
                 <List>
                     {menuItems.map(item => (

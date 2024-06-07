@@ -5,14 +5,11 @@ import _ from 'lodash'
 import './style.css'
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-function UserLogin({setUser, setMod}) {
+function UserLogin({setMod}) {
     const history = useHistory()
-    const [username, setUsername] = useState('')
     const [module, setModule] = useState('')
     const handleUser = () => {
-        if (!username || !module) return;
-        //localStorage.setItem('user', userName)
-        setUser(username)
+        if (!module) return;
         setMod(module)
         localStorage.setItem('avatar', `https://picsum.photos/id/${_.random(1,1000)}/200/300`)
         history.push('/login/chat/success')
@@ -24,10 +21,8 @@ function UserLogin({setUser, setMod}) {
                 <h1>Chat App</h1>
             </div>
             <div className='login_form'>
-                <input type='text' placeholder='Enter a Unique Name' value={username} onChange={(e) => setUsername(e.target.value)} />
                 <input type='text' placeholder='Enter the module you want to join' value={module} onChange={(e) => setModule(e.target.value)} />
                 <button onClick={handleUser}>Login</button>
-
             </div>
         </div>
     )

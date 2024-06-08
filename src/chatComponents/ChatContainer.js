@@ -15,23 +15,26 @@ import UserContext from '../UserContext.js'
     const history = useHistory()
     const [user, setUser] = useState(userContext.email)
     const [mod, setMod] = useState(module)
-    const socketio = /*socketIOClient('http://localhost:3000')*/ socketIOClient('https://chatbackend.adaptable.app/')
     const [chats, setChats] = useState([])
+    const socketioRef = useRef(null);
+    
     
     
     useEffect(() => {
-        socketio.on('chat', (chats) => {
-                const correctChats = chats.filter(chat => chat.module == mod)
+        socketioRef.current = socketIOClient('http://localhost:3000')
+        
+        socketioRef.current.on('chat', (chats) => {
+                const correctChats = chats.filter(chat => chat.module === mod)
                 setChats(correctChats)
             }
         )
 
 
 
-        socketio.on('message', (msg) => {
+        socketioRef.current.on('message', (msg) => {
             setChats(prevChats => {
                 //return [...prevChats, msg]
-                if (msg.module == mod) {
+                if (msg.module === mod) {
                     return [...prevChats, msg]
                 } else {
                     return prevChats
@@ -39,15 +42,20 @@ import UserContext from '../UserContext.js'
             })
         })
 
+        const preventTimeOut = setInterval(() => {
+            socketioRef.current.emit('reconnect')
+        }, 30000);
+
         return () => {
-            socketio.off('chat')
-            socketio.off('message')
+            socketioRef.current.off('chat')
+            socketioRef.current.off('message')
+            clearInterval(preventTimeOut)
         }
     }, [])
     
-    function sendToSocket(chat) {
+    /*function sendToSocket(chat) {
         socketio.emit('chat', chat)
-    }
+    }*/
     
     function Logout() {
         //localStorage.removeItem('user')
@@ -66,19 +74,17 @@ import UserContext from '../UserContext.js'
             message: chat,
             avatar: localStorage.getItem('avatar')
         }
-        socketio.emit('newMessage', newChat)
+        socketioRef.current.emit('newMessage', newChat)
     }
     
     return (
         <div>
-           
             <div>
                 <div className='chats_header'>
                     <div>
                         <h4 style={{padding: '5px'}}>Username: {user}</h4>
                         <h4 style={{padding: '5px'}}>Module: {mod}</h4>
                     </div>
-                    <p><FaYoutube className='chats_icon' /></p>
                     <p className='chats_logout' style={{padding: '10px'}} onClick={Logout}>
                         <strong>Logout</strong>
                     </p>

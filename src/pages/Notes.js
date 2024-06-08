@@ -41,6 +41,8 @@ export default function Notes() {
         //console.log(d.id, d.data().title)
       })
     }).then(() => setNotes(notes))
+
+    return () => setNotes([])
   }, [reset])
 
   /*async function handleDelete(id) {

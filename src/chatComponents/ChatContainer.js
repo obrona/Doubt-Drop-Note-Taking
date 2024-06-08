@@ -29,8 +29,6 @@ import UserContext from '../UserContext.js'
             }
         )
 
-
-
         socketioRef.current.on('message', (msg) => {
             setChats(prevChats => {
                 //return [...prevChats, msg]

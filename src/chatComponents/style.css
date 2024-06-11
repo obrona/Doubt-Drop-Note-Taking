@@ -94,6 +94,8 @@
 }
 
 .chat_sender p {
+    max-width: 70vh;
+    word-wrap: break-word;
     padding: 10px;
     background-color: #f0f0f0;
     border-radius: 10px;
@@ -109,6 +111,8 @@
 
 
 .chat_receiver p {
+    max-width: 70vh;
+    word-wrap: break-word;
     padding: 10px;
     background-color: #aff6be;
     border-radius: 10px;

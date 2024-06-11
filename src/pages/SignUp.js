@@ -51,7 +51,7 @@ export default function SignUp({login, setLogin}) {
                 <div style={{padding:'20px'}} />
                 <Button variant='contained' type='submit' color='primary' fullWidth onClick={signUp}>Sign Up</Button>
                 <Grid align='center'>
-                    <p style={{margin:'20px auto'}}>Registered <Link to='/'>Sign in here</Link></p>
+                    <p style={{margin:'20px auto'}}>Registered? <Link to='/'>Sign in here</Link></p>
                 </Grid>
                 {(validCreds) ? null : 
                     <Grid align='center'>

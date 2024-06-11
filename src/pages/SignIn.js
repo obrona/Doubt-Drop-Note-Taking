@@ -63,7 +63,7 @@ export default function SignIn({login, setLogin}) {
                 <div style={{padding:'20px'}} />
                 <Button variant='contained' type='submit' color='primary' fullWidth onClick={handleLogin}>Sign In</Button>
                 <Grid align='center'>
-                    <p style={{margin:'20px auto'}}>Not registered <Link to='/signUp'>Sign up here</Link></p>
+                    <p style={{margin:'20px auto'}}>Not registered? <Link to='/signUp'>Sign up here</Link></p>
                 </Grid>
             </Paper>
         </Grid>

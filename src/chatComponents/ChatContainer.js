@@ -21,7 +21,7 @@ import UserContext from '../UserContext.js'
     
     
     useEffect(() => {
-        socketioRef.current = socketIOClient('http://localhost:3000')
+        socketioRef.current = socketIOClient('https://chatbackend.adaptable.app/')
         
         socketioRef.current.on('chat', (chats) => {
                 const correctChats = chats.filter(chat => chat.module === mod)

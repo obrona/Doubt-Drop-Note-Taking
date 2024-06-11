@@ -1,21 +1,34 @@
 import { Paper, makeStyles, Grid, Avatar, TextField, FormControlLabel, Button, Typography } from "@material-ui/core";
 import { CheckBox } from "@material-ui/icons";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import UserContext from "../UserContext";
 
 
+const imgs = ['/dd0.png', '/dd1.png', '/dd2.png', '/dd3.png', '/dd4.png']
+const len = imgs.length
+
 
 export default function SignIn({login, setLogin}) {
-    const userContext = useContext(UserContext)
-    const paperStyle = {padding:20, height:'70vh', width:280, margin:'20px auto'}
-    const avatarStyle = {backgroundColor:'green'}
     const history = useHistory()
-
+    const userContext = useContext(UserContext)
+    const [img, setImg] = useState(imgs[0])
+    const imgIndex = useRef(0)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const paperStyle = {padding:20, height:'70vh', width:280, margin:'5% 0px'}
+    const avatarStyle = {backgroundColor:'green'}
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            imgIndex.current = (imgIndex.current + 1) % len
+            setImg(imgs[imgIndex.current])
+        }, 2000)
+        return () => clearInterval(interval)
+    }, [])
     
     function handleLogin() {
         const auth = getAuth();
@@ -33,14 +46,13 @@ export default function SignIn({login, setLogin}) {
             console.log(err.message);
             alert('Invalid credentials');
         })
-
-        
-        
-       
     }
+
+
     return (
-        <Grid>
-            <Paper elevation={5} style={paperStyle}>
+        <Grid  container direction="row" alignContent="center" justifyContent="center">
+            <img style={{height: '70vh', width: '80vh', margin: '5% 0%'}} src={img} />
+            <Paper elevation={2} style={paperStyle}>
                 <Grid align='center'>
                     <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
                     <Typography variant='h5'>Sign In</Typography>
@@ -53,8 +65,6 @@ export default function SignIn({login, setLogin}) {
                 <Grid align='center'>
                     <p style={{margin:'20px auto'}}>Not registered <Link to='/signUp'>Sign up here</Link></p>
                 </Grid>
-                
-                
             </Paper>
         </Grid>
     )

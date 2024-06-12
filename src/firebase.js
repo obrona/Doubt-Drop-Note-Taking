@@ -20,5 +20,6 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 const colRef = collection(db, 'Notes')
+const moduleRef = collection(db, 'Modules')
 
-export { db, colRef }
+export { db, colRef, moduleRef }

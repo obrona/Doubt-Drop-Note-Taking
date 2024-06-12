@@ -3,7 +3,7 @@ import { CheckBox } from "@material-ui/icons";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, Redirect, useHistory } from 'react-router-dom'
-import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import UserContext from "../UserContext";
 
 
@@ -48,6 +48,15 @@ export default function SignIn({login, setLogin}) {
         })
     }
 
+    function forgotPassword() {
+        if (email === '') {
+            alert('Please input yout email first')
+        } else {
+            const auth = getAuth()
+            sendPasswordResetEmail(auth, email).then(() => alert('password reset link sent to email')).catch(err => console.log(err.message))
+        }
+    }
+
 
     return (
         <Grid  container direction="row" alignContent="center" justifyContent="center">
@@ -65,6 +74,7 @@ export default function SignIn({login, setLogin}) {
                 <Grid align='center'>
                     <p style={{margin:'20px auto'}}>Not registered? <Link to='/signUp'>Sign up here</Link></p>
                 </Grid>
+                <Button style={{margin: '0vh 3vh'}} variant='outlined' color='secondary' onClick={forgotPassword}>Forgot Password?</Button>
             </Paper>
         </Grid>
     )

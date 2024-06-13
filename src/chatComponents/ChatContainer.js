@@ -1,16 +1,19 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
-import { FaHillAvalanche, FaYoutube } from 'react-icons/fa6'
 import ChatLists from './ChatLists.js'
 import InputText from './InputText.js'
 import UserLogin from './UserLogin.js'
 import socketIOClient from 'socket.io-client'
+import { ref, uploadBytes } from 'firebase/storage'
+import { imageDb } from '../firebase'
+import { v4 } from 'uuid'
+
 
 
 import './style.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min.js'
 import UserContext from '../UserContext.js'
 
- function ChatContainer({module}) {
+function ChatContainer({module}) {
     const userContext = useContext(UserContext)
     const history = useHistory()
     const [user, setUser] = useState(userContext.email)
@@ -21,7 +24,7 @@ import UserContext from '../UserContext.js'
     
     
     useEffect(() => {
-        socketioRef.current = socketIOClient('https://chatbackend.adaptable.app/')
+        socketioRef.current = socketIOClient('http://localhost:3000')           //socketIOClient('https://chatbackend.adaptable.app/')
         
         socketioRef.current.on('chat', (chats) => {
                 const correctChats = chats.filter(chat => chat.module === mod)
@@ -61,16 +64,23 @@ import UserContext from '../UserContext.js'
         //setUser('')
         history.push('/login/chat')
     }
-    
-    
-    
+
+    function addImage(fileName) {
+        const newChat = {
+            username: user,
+            module: mod,
+            message: "",
+            imageId: fileName
+        }
+        socketioRef.current.emit('newMessage', newChat)
+    }
     
     function addMessage(chat) {
         const newChat = {
             username: user,
             module: mod,
             message: chat,
-            avatar: localStorage.getItem('avatar')
+            imageId: "-1"
         }
         socketioRef.current.emit('newMessage', newChat)
     }
@@ -87,8 +97,8 @@ import UserContext from '../UserContext.js'
                         <strong>Logout</strong>
                     </p>
                 </div>
-                <ChatLists user={user} chats={chats}/>
-                <InputText addMessage={addMessage} />
+                <ChatLists user={user} chats={chats} />
+                <InputText addMessage={addMessage} addImage={addImage} />
             </div>
            
         </div>

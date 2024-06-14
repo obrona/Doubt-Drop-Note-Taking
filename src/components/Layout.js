@@ -2,7 +2,8 @@ import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Drawer, Typography, Button } from '@material-ui/core'
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { AddCircleOutline, SubjectOutlined, AvTimerOutlined, ChatOutlined } from '@material-ui/icons'
+import { AddCircleOutline, SubjectOutlined, AvTimerOutlined, ChatOutlined, AccountCircleOutlined } from '@material-ui/icons'
+
 import { AppBar, Toolbar, Avatar } from '@material-ui/core'
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min'
 import { format } from 'date-fns'
@@ -49,7 +50,8 @@ export function Layout({ children }) {
         {text: 'Create Note', icon: <AddCircleOutline color='secondary' />, path: '/create'},
         {text: 'Quotes', icon: <LibraryBooksIcon color='secondary' />, path: '/quotes'},
         {text: 'Timer', icon: <AvTimerOutlined color='secondary' />, path: '/timer'},
-        {text: 'Chat', icon: <ChatOutlined color='secondary' />, path: '/chat'}
+        {text: 'Chat', icon: <ChatOutlined color='secondary' />, path: '/chat'},
+        {text: 'Profile', icon: <AccountCircleOutlined color='secondary' />, path: '/profile'}
     ];
 
     function signOut() {
@@ -66,7 +68,7 @@ export function Layout({ children }) {
                     <Typography>
                         {userContext.email}
                     </Typography>
-                    <Avatar src='/dd.jpeg' className={classes.avatar} />
+                    <Avatar src={userContext.imgUrl} className={classes.avatar} />
                     <Button onClick={() => signOut()}>Sign Out</Button>
                 </Toolbar>
             </AppBar>

@@ -5,6 +5,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Link, Redirect, useHistory } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import UserContext from "../UserContext";
+import { db, profilePicRef } from '../firebase'
+import { getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
+import { imageDb } from "../firebase";
+import { getDownloadURL, ref } from "firebase/storage";
+
+
 
 
 const imgs = ['/dd0.png', '/dd1.png', '/dd2.png', '/dd3.png', '/dd4.png']
@@ -37,7 +43,18 @@ export default function SignIn({login, setLogin}) {
             if (user.emailVerified) {
                 setLogin(true)
                 userContext.setEmail(email)
+                getDocs(query(profilePicRef, where('email', '==', email))).then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        userContext.setImgUrl('/dd.jpeg')
+                    } else {
+                        querySnapshot.docs.forEach(document => {
+                            const imageId = ref(imageDb, document.data().imageId)
+                            getDownloadURL(imageId).then((url) => userContext.setImgUrl(url))
+                        })
+                    }
+                })
                 history.push('/login/notes')
+                
             } else {
                 alert('Email is not verified. Please check the email you sign up with for the verification email')
             }

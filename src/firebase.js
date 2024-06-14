@@ -20,7 +20,8 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 const colRef = collection(db, 'Notes')
+const profilePicRef = collection(db, 'Profile')
 const moduleRef = collection(db, 'Modules')
 const imageDb = getStorage(app)
 
-export { db, colRef, moduleRef, imageDb }
+export { db, colRef, moduleRef, imageDb, profilePicRef }

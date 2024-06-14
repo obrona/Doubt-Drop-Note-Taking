@@ -24,8 +24,8 @@ function ChatContainer({module}) {
     
     
     useEffect(() => {
-        socketioRef.current = socketIOClient('http://localhost:3000')           //socketIOClient('https://chatbackend.adaptable.app/')
-        
+        socketioRef.current = socketIOClient('https://chatbackend.adaptable.app/')   //socketIOClient('http://localhost:3000')
+             
         socketioRef.current.on('chat', (chats) => {
                 const correctChats = chats.filter(chat => chat.module === mod)
                 setChats(correctChats)
@@ -43,6 +43,7 @@ function ChatContainer({module}) {
             })
         })
 
+        // dk why, but need to do this to prevent timeout which will cause a lot of erros
         const preventTimeOut = setInterval(() => {
             socketioRef.current.emit('reconnect')
         }, 30000);

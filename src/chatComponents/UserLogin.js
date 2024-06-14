@@ -30,11 +30,11 @@ function UserLogin({setMod}) {
     const [module, setModule] = useState('')
     const [mods, setMods] = useState([])
     
-    async function handleUser() {
+    function handleUser() {
         if (!module) return;
         
         if (mods.filter(mod => mod.module === module) == 0) {
-            await addDoc(moduleRef, {
+            addDoc(moduleRef, {
                 email: getAuth().currentUser.email,
                 module: module
             })
@@ -78,7 +78,7 @@ function UserLogin({setMod}) {
             </div>
             <Grid container direction='column' alignItems='center'>
                 <Typography variant='h6'>Modules Joined Before</Typography>
-                {mods.map(mod => <Module mod={mod} deleteModule={() => deleteModule(mod.id)} selectModule={() => selectModule(mod.module)}/>)}
+                {mods.map((mod, index) => <Module key={index} mod={mod} deleteModule={() => deleteModule(mod.id)} selectModule={() => selectModule(mod.module)}/>)}
             </Grid>
         </div>
     )

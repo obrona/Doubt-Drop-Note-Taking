@@ -10,6 +10,9 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import UserContext from './UserContext'
 import Chat from './chatComponents/Chat'
+import ProfilePic from './profilePicComponent/profile'
+import { db, profilePicRef } from './firebase'
+import { getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
 
 
 
@@ -18,8 +21,12 @@ import Chat from './chatComponents/Chat'
 function App() {
   const [email, setEmail] = useState('')
   const [login, setLogin] = useState(false)
+  const [imgUrl, setImgUrl] = useState('')
+
+  
+  
   return (
-    <UserContext.Provider value={{login: login, setLogin: setLogin, email: email, setEmail: setEmail}}>
+    <UserContext.Provider value={{login: login, setLogin: setLogin, email: email, setEmail: setEmail, imgUrl: imgUrl, setImgUrl: setImgUrl}}>
       <BrowserRouter>
         <Route exact path='/'>
           <SignIn login={login} setLogin={setLogin}/>
@@ -46,6 +53,9 @@ function App() {
               </Route>
               <Route exact path='/login/chat'>
                 <Chat />
+              </Route>
+              <Route exact path='/login/profile'>
+                <ProfilePic />
               </Route>
             </Switch>
           </Layout>

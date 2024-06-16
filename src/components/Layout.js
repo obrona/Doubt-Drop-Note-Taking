@@ -48,7 +48,6 @@ export function Layout({ children }) {
     const menuItems = [
         {text: 'My Notes', icon: <SubjectOutlined color='secondary' />, path: '/notes'},
         {text: 'Create Note', icon: <AddCircleOutline color='secondary' />, path: '/create'},
-        {text: 'Quotes', icon: <LibraryBooksIcon color='secondary' />, path: '/quotes'},
         {text: 'Timer', icon: <AvTimerOutlined color='secondary' />, path: '/timer'},
         {text: 'Chat', icon: <ChatOutlined color='secondary' />, path: '/chat'},
         {text: 'Profile', icon: <AccountCircleOutlined color='secondary' />, path: '/profile'}

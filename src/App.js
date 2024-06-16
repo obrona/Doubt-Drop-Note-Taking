@@ -45,9 +45,6 @@ function App() {
               <Route exact path="/login/create">
                 <Create />
               </Route>
-              <Route exact path='/login/quotes'>
-                <Quotes />
-              </Route>
               <Route exact path='/login/timer'>
                 <PomodoroTimer />
               </Route>

@@ -65,7 +65,7 @@ function ProfilePic() {
                     imageId: fileName
                 })
                 .then(() => uploadBytes(ref(imageDb, fileName), img))
-                .then(alert("Successfully updated profile pic. Sign Out and login again"))
+                .then(alert("Successfully updated profile pic."))
                 
             })
         }

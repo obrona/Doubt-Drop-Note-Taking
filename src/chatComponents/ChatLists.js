@@ -55,7 +55,6 @@ function ReceiverImage({username, imageId}) {
     const fileRef = ref(imageDb, imageId)
     const [url, setUrl] = useState('')
     const [error, setError] = useState(false)
-    console.log(imageId)
     
     useEffect(() => {
         getDownloadURL(fileRef).then((url) => setUrl(url)).catch(err => setError(x => !x))

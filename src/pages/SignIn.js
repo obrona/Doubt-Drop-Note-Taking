@@ -70,7 +70,7 @@ export default function SignIn({login, setLogin}) {
             alert('Please input yout email first')
         } else {
             const auth = getAuth()
-            sendPasswordResetEmail(auth, email).then(() => alert('password reset link sent to email')).catch(err => console.log(err.message))
+            sendPasswordResetEmail(auth, email).then(() => alert('password reset link sent to email')).catch(err => alert(err.message))
         }
     }
 
@@ -90,8 +90,9 @@ export default function SignIn({login, setLogin}) {
                 <Button variant='contained' type='submit' color='primary' fullWidth onClick={handleLogin}>Sign In</Button>
                 <Grid align='center'>
                     <p style={{margin:'20px auto'}}>Not registered? <Link to='/signUp'>Sign up here</Link></p>
+                    <Button  variant='outlined' color='secondary' onClick={forgotPassword}>Forgot Password?</Button>
                 </Grid>
-                <Button style={{margin: '0vh 3vh'}} variant='outlined' color='secondary' onClick={forgotPassword}>Forgot Password?</Button>
+                
             </Paper>
         </Grid>
     )

@@ -81,9 +81,8 @@ function ProfilePic() {
             <h1>{userContext.email}</h1>
             <img src={imgUrl} />
             <button onClick={onUpload}>Update Image</button>
-
             <input type='file' accept='image/jpg, image/png, image/jpeg' id='input-file' onChange={e => onFileChange(e)} />
-            <p>Please be patient, it is quite laggy as I am using free firebase tier. If you dont click update image, the changes will be temporary only</p>
+            <p>If you don't click update image, the changes will reset when you sign out and sign in again</p>
         </div>
     </div>
         

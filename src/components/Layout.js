@@ -46,9 +46,9 @@ export function Layout({ children }) {
     const history = useHistory();
     const location = useLocation();
     const menuItems = [
-        {text: 'My Notes', icon: <SubjectOutlined color='secondary' />, path: '/notes'},
+        {text: 'Notes', icon: <SubjectOutlined color='secondary' />, path: '/notes'},
         {text: 'Create Note', icon: <AddCircleOutline color='secondary' />, path: '/create'},
-        {text: 'Timer', icon: <AvTimerOutlined color='secondary' />, path: '/timer'},
+        {text: 'Pomodoro Timer', icon: <AvTimerOutlined color='secondary' />, path: '/timer'},
         {text: 'Chat', icon: <ChatOutlined color='secondary' />, path: '/chat'},
         {text: 'Profile', icon: <AccountCircleOutlined color='secondary' />, path: '/profile'}
     ];

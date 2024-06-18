@@ -16,6 +16,7 @@ export default function SignUp({login, setLogin}) {
     const history = useHistory()
     const [img, setImg] = useState(imgs[0])
     const imgIndex = useRef(0)
+    const [errorMessage, setErrorMessage] = useState(null)
     
     const paperStyle = {padding:20, height:'70vh', width:280, margin:'5% 0%'}
     const avatarStyle = {backgroundColor:'green'}
@@ -33,14 +34,16 @@ export default function SignUp({login, setLogin}) {
         createUserWithEmailAndPassword(auth, email, password).then(() => {
             sendEmailVerification(auth.currentUser);
             alert('Email verification sent. Please check your email for the verification, then go to sign in and log in with your account')
-        }).catch(err => setValidCreds(false))
+        }).catch(err => {
+            setErrorMessage(err.message)
+        })
     }
 
     
     return (
         <Grid container direction="row" alignContent="center" justifyContent="center">
             <img style={{height: '70vh', width: '80vh', margin: '5% 0%'}} src={img} />
-            <Paper elevation={5} style={paperStyle}>
+            <Paper elevation={2} style={paperStyle}>
                 <Grid align='center'>
                     <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
                     <Typography variant='h5'>Sign Up</Typography>
@@ -53,11 +56,10 @@ export default function SignUp({login, setLogin}) {
                 <Grid align='center'>
                     <p style={{margin:'20px auto'}}>Registered? <Link to='/'>Sign in here</Link></p>
                 </Grid>
-                {(validCreds) ? null : 
-                    <Grid align='center'>
-                        <p>Invalid email and/or password. Please try again</p>
-                    </Grid>
-                }
+                <Grid align='center'>
+                    <Typography color='secondary'>{errorMessage}</Typography>
+                </Grid>
+                
             </Paper>
         </Grid>
     )

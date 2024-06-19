@@ -19,7 +19,7 @@ function Settings() {
                 trackClassName={'track'}
                 value={settingsInfo.workMinutes}
                 onChange={newValue => settingsInfo.setWorkMinutes(newValue)}
-                min={1}
+                min={0}
                 max={120}
             />
             <div style={{padding:'10px'}}></div>
@@ -28,7 +28,7 @@ function Settings() {
                 trackClassName={'track'}
                 value={settingsInfo.breakMinutes}
                 onChange={newValue => settingsInfo.setBreakMinutes(newValue)}
-                min={1}
+                min={0}
                 max={120}
             />
             <div style={{textAlign:'center', marginTop:'20px'}}>

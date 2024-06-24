@@ -26,10 +26,10 @@ function InputText({addMessage, addImage}) {
     
     return (
         <div className='inputtext_container'>
-            <textarea name='message' id='message' rows='6' placeholder='Inpute Message...' value={message} onChange={(e) => {setMessage(e.target.value)}}></textarea>
+            <textarea name='message' id='message' rows='6' placeholder='Input Message...' value={message} onChange={(e) => {setMessage(e.target.value)}}></textarea>
             <button onClick={sendMessage}>Send</button>
             <br />
-            <input style={{borderColor: 'red'}} type='file' accept='image/jpg, image/png, image/jpeg' onChange={e => setImg(e.target.files[0])}></input>
+            <input class="custom-file-input" style={{borderColor: 'red'}} type='file' accept='image/jpg, image/png, image/jpeg' onChange={e => setImg(e.target.files[0])}></input>
             <button onClick={uploadImage}>Upload Image</button>
 
         </div>

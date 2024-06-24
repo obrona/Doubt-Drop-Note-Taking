@@ -1,27 +1,47 @@
-import React, { useContext, useState } from 'react'
-import { Typography, Button, ButtonGroup, Container } from '@material-ui/core'
+import React, { useContext, useState } from 'react';
+import { Typography, Button, Container, TextField, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Paper } from '@material-ui/core';
 import { KeyboardArrowRight } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core';
-import { TextField, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import { addDoc } from "firebase/firestore";
-import { db, colRef } from '../firebase.js' 
+import { db, colRef } from '../firebase.js';
 import UserContext from '../UserContext.js';
 
-//sujdhaisdbuh
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  formPaper: {
+    padding: theme.spacing(3),
+    marginTop: theme.spacing(4),
+    width: '100%',
+    maxWidth: 600,
+    boxShadow: theme.shadows[3],
+  },
+  field: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+  },
+  formControl: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
   btn: {
-    fontSize: 60,
-    background: 'violet'
-  }, field: {
-    marginTop: 40,
-    marginBottom: 20,
-    display: 'block'
-  }
-})
+    marginTop: theme.spacing(2),
+    fontSize: 16,
+    background: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    '&:hover': {
+      background: theme.palette.primary.dark,
+    },
+  },
+}));
 
 export default function Create() {
-  const userContext = useContext(UserContext)
+  const userContext = useContext(UserContext);
   const classes = useStyles();
   const history = useHistory();
   const [title, setTitle] = useState('');
@@ -30,46 +50,75 @@ export default function Create() {
   const [detailsError, setDetailsError] = useState(false);
   const [category, setCategory] = useState('todos');
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setTitleError(false);
-    setDetailsError(false);
-    if (title == '') {
-      setTitleError(true);
-    } else if (details == '') {
-      setDetailsError(true);
-    } else {
-      //fetch('http://localhost:8000/notes', 
-      //  {method: 'POST', header: {'Content type': 'application/json'}, body: JSON.stringify({title, details, category})}).then(() => history.push('/login/notes'));
-      addDoc(colRef, {
-        email: userContext.email,
-        title: title,
-        details: details,
-        category: category
-      }).then(() => history.push('/login/notes'))
+    setTitleError(!title);
+    setDetailsError(!details);
+
+    if (title && details) {
+      try {
+        await addDoc(colRef, {
+          email: userContext.email,
+          title,
+          details,
+          category
+        });
+        history.push('/login/notes');
+      } catch (error) {
+        console.error("Error adding document: ", error);
+      }
     }
   }
-  
+
   return (
-    <Container>
-      <Typography variant='h6' color='textSecondary' component='h2' gutterBottom >Create a new Note</Typography>
-      <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-        <TextField onChange={(e) => setTitle(e.target.value)} className={classes.field} label='Note Title' variant='outlined' error={titleError} required fullWidth/>
-        <TextField onChange={(e) => setDetails(e.target.value)} className={classes.field} label='Details'  variant='outlined' color='secondary' multiline minRows={4} error={detailsError} required fullWidth />
-        
-        <FormControl className={classes.field}>
-          <FormLabel>Note Category</FormLabel>
-          <RadioGroup value={category} onChange={(e) => setCategory(e.target.value)}>
-            <FormControlLabel value='money' control={<Radio />} label='Money' />
-            <FormControlLabel value='todos' control={<Radio />} label='Todos' />
-            <FormControlLabel value='reminder' control={<Radio />} label='Reminder' />
-            <FormControlLabel value='work' control={<Radio />} label='Work' />
-          </RadioGroup>
-        </FormControl>
-        <Button type='submit' color='secondary' variant='contained' onClick={()=>console.log("you click me")} endIcon={<KeyboardArrowRight />}>Submit</Button>
-      </form>
-      
-      <br />
+    <Container className={classes.container}>
+      <Typography variant="h4" color="textPrimary" gutterBottom>
+        Create a New Note
+      </Typography>
+      <Paper className={classes.formPaper}>
+        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+          <TextField
+            onChange={(e) => setTitle(e.target.value)}
+            className={classes.field}
+            label="Note Title"
+            variant="outlined"
+            error={titleError}
+            required
+            fullWidth
+            helperText={titleError ? "Title is required" : ""}
+          />
+          <TextField
+            onChange={(e) => setDetails(e.target.value)}
+            className={classes.field}
+            label="Details"
+            variant="outlined"
+            color="secondary"
+            multiline
+            minRows={4}
+            error={detailsError}
+            required
+            fullWidth
+            helperText={detailsError ? "Details are required" : ""}
+          />
+          <FormControl component="fieldset" className={classes.formControl}>
+            <FormLabel component="legend">Note Category</FormLabel>
+            <RadioGroup value={category} onChange={(e) => setCategory(e.target.value)}>
+              <FormControlLabel value="money" control={<Radio />} label="Money" />
+              <FormControlLabel value="todos" control={<Radio />} label="Todos" />
+              <FormControlLabel value="reminder" control={<Radio />} label="Reminder" />
+              <FormControlLabel value="work" control={<Radio />} label="Work" />
+            </RadioGroup>
+          </FormControl>
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.btn}
+            endIcon={<KeyboardArrowRight />}
+          >
+            Submit
+          </Button>
+        </form>
+      </Paper>
     </Container>
-  )
+  );
 }

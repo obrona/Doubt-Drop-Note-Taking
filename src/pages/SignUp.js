@@ -12,8 +12,6 @@ const len = imgs.length
 export default function SignUp({login, setLogin}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [validCreds, setValidCreds] = useState(true)
-    const history = useHistory()
     const [img, setImg] = useState(imgs[0])
     const imgIndex = useRef(0)
     const [errorMessage, setErrorMessage] = useState(null)

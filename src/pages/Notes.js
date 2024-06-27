@@ -40,7 +40,10 @@ export default function Notes() {
         notes.push({...d.data(), id: d.id});
         //console.log(d.id, d.data().title)
       })
-    }).then(() => setNotes(notes))
+    }).then(() => {
+      setNotes(notes)
+      sessionStorage.setItem('notes', notes)
+    })
 
     return () => setNotes([])
   }, [reset])
@@ -72,7 +75,7 @@ export default function Notes() {
       setNotes(newNotes);
     } else {
       // make useEffect run again by changing its dependencies
-      setReset(!reset);
+      setReset(!reset)
     }
     
   }

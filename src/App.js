@@ -4,7 +4,7 @@ import Create from './pages/Create'
 import Quotes from './pages/Quotes'
 import { Layout } from './components/Layout'
 import PomodoroTimer from './timerComponents/PomodoroTimer'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
@@ -19,11 +19,9 @@ import { getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
 
 
 function App() {
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(sessionStorage.getItem('email'))
   const [login, setLogin] = useState(false)
-  const [imgUrl, setImgUrl] = useState('')
-
-  
+  const [imgUrl, setImgUrl] = useState(sessionStorage.getItem('imgUrl'))
   
   return (
     <UserContext.Provider value={{login: login, setLogin: setLogin, email: email, setEmail: setEmail, imgUrl: imgUrl, setImgUrl: setImgUrl}}>
@@ -36,7 +34,7 @@ function App() {
         </Route>
 
         <Route path='/login'>
-          {(login) ? 
+          {(sessionStorage.getItem('signInSuccess') != null) ? 
           <Layout>
             <Switch>
               <Route exact path="/login/notes">

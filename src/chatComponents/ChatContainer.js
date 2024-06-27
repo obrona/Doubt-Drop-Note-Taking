@@ -12,13 +12,14 @@ import { v4 } from 'uuid'
 import './style.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min.js'
 import UserContext from '../UserContext.js'
+import { Button } from '@material-ui/core'
 
-function ChatContainer({module}) {
+function ChatContainer({module, setModule}) {
     const userContext = useContext(UserContext)
-    const history = useHistory()
     const [user, setUser] = useState(userContext.email)
     const [mod, setMod] = useState(module)
     const [chats, setChats] = useState([])
+    // why useRef, so that when the component rerenders, it wont try to connect to the url api again
     const socketioRef = useRef(null);
     
     
@@ -60,10 +61,8 @@ function ChatContainer({module}) {
     }*/
     
     function Logout() {
-        //localStorage.removeItem('user')
-        //localStorage.removeItem('avatar')
-        //setUser('')
-        history.push('/login/chat')
+        sessionStorage.removeItem('chatSignInModule')
+        setModule(null)
     }
 
     function addImage(fileName) {
@@ -94,9 +93,9 @@ function ChatContainer({module}) {
                         <h4 style={{padding: '5px'}}>Username: {user}</h4>
                         <h4 style={{padding: '5px'}}>Module: {mod}</h4>
                     </div>
-                    <p className='chats_logout' style={{padding: '10px'}} onClick={Logout}>
+                    <Button variant='outlined' color='secondary' className='chats_logout' style={{padding: '10px'}} onClick={Logout}>
                         <strong>Logout</strong>
-                    </p>
+                    </Button>
                 </div>
                 <ChatLists user={user} chats={chats} />
                 <InputText addMessage={addMessage} addImage={addImage} />

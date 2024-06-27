@@ -6,18 +6,11 @@ import { useState } from "react";
 
 function Chat() {
     const [user, setUser] = useState('')
-    const [mod, setMod] = useState('')
-    return (<BrowserRouter>
-        <Switch>
-            <Route exact path='/login/chat'>
-                <UserLogin setMod={setMod} />
-            </Route>
-            <Route exact path='/login/chat/success'>
-                <ChatContainer module={mod}/>
-            </Route>
+    const [mod, setMod] = useState(sessionStorage.getItem('chatSignInModule'))
 
-        </Switch>
-    </BrowserRouter>)
+    return ((mod != null) ?
+        <ChatContainer setModule={setMod} module={mod} /> : <UserLogin setMod={setMod} />
+    )
 }
 
 export default Chat

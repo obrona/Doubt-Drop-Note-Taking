@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaReact } from 'react-icons/fa6'
 import _ from 'lodash'
 import { Grid, Paper, Typography, Button, IconButton } from '@material-ui/core'
@@ -8,6 +8,7 @@ import { getAuth } from 'firebase/auth'
 import { db, moduleRef } from '../firebase'
 import { getDocs, query, where, deleteDoc, doc, addDoc } from 'firebase/firestore'
 import './style.css'
+import UserContext from "../UserContext";
 
 
 
@@ -26,7 +27,7 @@ function Module({mod, deleteModule, selectModule}) {
 
 
 function UserLogin({setMod}) {
-    const history = useHistory()
+    const userContext = useContext(UserContext)
     const [module, setModule] = useState('')
     const [mods, setMods] = useState([])
     
@@ -35,14 +36,15 @@ function UserLogin({setMod}) {
         
         if (mods.filter(mod => mod.module === module) == 0) {
             addDoc(moduleRef, {
-                email: getAuth().currentUser.email,
+                email: userContext.email,
                 module: module
             })
         }
         
         setMod(module)
+        sessionStorage.setItem('chatSignInModule', module)
         localStorage.setItem('avatar', `https://picsum.photos/id/${_.random(1,1000)}/200/300`)
-        history.push('/login/chat/success')
+        //history.push('/login/chat/success')
     }
 
     function deleteModule(id) {
@@ -56,7 +58,7 @@ function UserLogin({setMod}) {
 
     useEffect(() => {
         const modules = []
-        const userEmail = getAuth().currentUser.email
+        const userEmail = userContext.email
         const q = query(moduleRef, where('email', '==', userEmail))
         getDocs(q).then(snapshot => {
             snapshot.docs.forEach((d) => {

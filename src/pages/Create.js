@@ -66,7 +66,7 @@ export default function Create() {
             <FormControlLabel value='work' control={<Radio />} label='Work' />
           </RadioGroup>
         </FormControl>
-        <Button type='submit' color='secondary' variant='contained' onClick={()=>console.log("you click me")} endIcon={<KeyboardArrowRight />}>Submit</Button>
+        <Button type='submit' color='secondary' variant='contained' endIcon={<KeyboardArrowRight />}>Submit</Button>
       </form>
       
       <br />

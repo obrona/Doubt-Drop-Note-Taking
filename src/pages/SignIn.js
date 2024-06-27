@@ -42,19 +42,26 @@ export default function SignIn({login, setLogin}) {
             const user = userCredentials.user
             if (user.emailVerified) {
                 setLogin(true)
+                sessionStorage.setItem('signInSuccess', 'true')
                 userContext.setEmail(email)
+                sessionStorage.setItem('email', email)
                 getDocs(query(profilePicRef, where('email', '==', email))).then((querySnapshot) => {
                     if (querySnapshot.empty) {
+                        console.log('no picture')
                         userContext.setImgUrl('/dd.jpeg')
+                        sessionStorage.setItem('imgUrl', '/dd.jpeg')
                     } else {
                         querySnapshot.docs.forEach(document => {
                             const imageId = ref(imageDb, document.data().imageId)
-                            getDownloadURL(imageId).then((url) => userContext.setImgUrl(url))
+                            getDownloadURL(imageId).then((url) => {
+                                    userContext.setImgUrl(url)
+                                    sessionStorage.setItem('imgUrl', url)
+                                }
+                            )
                         })
                     }
                 })
                 history.push('/login/notes')
-                
             } else {
                 alert('Email is not verified. Please check the email you sign up with for the verification email')
             }

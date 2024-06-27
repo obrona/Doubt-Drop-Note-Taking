@@ -55,6 +55,7 @@ export function Layout({ children }) {
 
     function signOut() {
         userContext.setLogin(false)
+        sessionStorage.clear()
         history.push('/')
     }
     return (

@@ -28,7 +28,6 @@ function Module({mod, deleteModule, selectModule}) {
 
 function UserLogin({setMod}) {
     const userContext = useContext(UserContext)
-    const history = useHistory()
     const [module, setModule] = useState('')
     const [mods, setMods] = useState([])
     

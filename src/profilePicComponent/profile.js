@@ -1,10 +1,10 @@
 import './profileStyle.css';
 import { useContext, useState } from 'react';
 import UserContext from '../UserContext';
-import { addDoc, getDocs, doc, query, where, updateDoc, deleteObject } from 'firebase/firestore';
+import { addDoc, getDocs, doc, query, where, updateDoc } from 'firebase/firestore';
 import { profilePicRef, imageDb } from '../firebase';
 import { v4 } from 'uuid';
-import { uploadBytes, ref } from 'firebase/storage';
+import { uploadBytes, ref, deleteObject } from 'firebase/storage'; // Corrected import
 import { Button, Card, CardContent, Typography, Avatar, CircularProgress } from '@material-ui/core';
 
 function ProfilePic() {
@@ -43,7 +43,7 @@ function ProfilePic() {
     } else {
       for (const document of querySnapshot.docs) {
         const docRef = doc(profilePicRef, document.id);
-        await deleteObject(ref(imageDb, document.data().imageId));
+        await deleteObject(ref(imageDb, document.data().imageId)); // Using deleteObject from firebase/storage
         await updateDoc(docRef, { imageId: fileName });
       }
       alert('Successfully updated profile pic.');

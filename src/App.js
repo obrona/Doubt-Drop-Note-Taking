@@ -48,6 +48,9 @@ function App() {
               <Route exact path='/login/timer'>
                 <PomodoroTimer />
               </Route>
+              <Route exact path='/login/pomodoro'>
+                <PomodoroTimer />
+              </Route>
               <Route exact path='/login/chat'>
                 <Chat />
               </Route>

@@ -1,0 +1,72 @@
+@import './_variables'
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap')
+
+root
+    --text: #{$gradient-stop-1}
+    --box-shadow-color: #{$box-shadow-color}
+    --timer-background-color: #{$white}
+    --button-background-color: #{$white}
+    --button-color: #{$gradient-stop-1}
+    --background-gradient-stop-1: #{$gradient-stop-1}
+    --background-gradient-stop-2: #{$gradient-stop-2}
+    --timercircle-dark-box-shadow-color: #{$timercircle-dark-box-shadow-color}
+
+[data-theme='light']
+    --background-gradient-stop-1: #{$gradient-stop-1}
+    --background-gradient-stop-2: #{$gradient-stop-2}
+    --timer-background-color: #{$white}
+    --button-background-color: #{$white}
+    --button-color: #{$gradient-stop-1}
+    --text: #{$gradient-stop-1}
+    --box-shadow-color: #{$box-shadow-color}
+
+[data-theme='dark']
+    --background-gradient-stop-1: #{$dark-gradient-stop-1}
+    --background-gradient-stop-2: #{$dark-gradient-stop-2}
+    --timer-background-color: #{$dark-gradient-stop-2}
+    --button-background-color: #{$dark-gradient-stop-2}
+    --button-color: #{$white}
+    --text: #{$white}
+    --box-shadow-color: #{$dark-box-shadow-color}
+    --timercircle-dark-box-shadow-color: #{$timercircle-dark-box-shadow-color}
+
+body
+    margin: 0
+    padding: 0
+    font-family: $main-font
+    background: linear-gradient(90deg, var(--background-gradient-stop-1) 0%, var(--background-gradient-stop-2) 100%)
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    color: $white
+
+button
+    appearance: none
+    box-shadow: none
+    background: transparent
+    border: 0
+    outline: 0
+    padding: 0.8em 0.9em
+    margin: 0.5em
+    border-radius: 50%
+    background-color: var(--button-background-color)
+    color: var(--button-color)
+    box-shadow: 0 2.8px 2.2px var(--box-shadow-color), 0 6.7px 5.3px var(--box-shadow-color), 0 12.5px 10px var(--box-shadow-color), 0 22.3px 17.9px var(--box-shadow-color), -2px 17px 33.4px var(--box-shadow-color), 1px 7px 20px 2px var(--box-shadow-color)
+    transition: all 0.1s ease-in-out
+
+    &:hover
+        cursor: pointer
+        transform: scale(1.1)
+
+    &:disabled
+        opacity: 0.6
+        pointer-events: none
+        box-shadow: none
+
+        svg
+            color: grey
+
+    svg
+        pointer-events: none

@@ -47,7 +47,6 @@ export default function SignIn({login, setLogin}) {
                 sessionStorage.setItem('email', email)
                 getDocs(query(profilePicRef, where('email', '==', email))).then((querySnapshot) => {
                     if (querySnapshot.empty) {
-                        console.log('no picture')
                         userContext.setImgUrl('/dd.jpeg')
                         sessionStorage.setItem('imgUrl', '/dd.jpeg')
                     } else {

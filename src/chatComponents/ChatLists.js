@@ -19,7 +19,6 @@ function SenderChat({message, username, avatar}) {
 }
 
 function SenderImage({username, imageId}) {
-    console.log(imageId)
     const fileRef = ref(imageDb, imageId)
     const [url, setUrl] = useState('')
     const [error, setError] = useState(false)
@@ -33,7 +32,7 @@ function SenderImage({username, imageId}) {
             <Avatar></Avatar>
             <p> 
                 <strong>{username}</strong><br />
-                <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
+                <a href={url} target="_blank" rel="noopener noreferrer">Image</a>
             </p>
         </div>
     )
@@ -65,7 +64,7 @@ function ReceiverImage({username, imageId}) {
             <Avatar></Avatar>
             <p>
                 <strong>{username}</strong><br />
-                <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
+                <a href={url} target="_blank" rel="noopener noreferrer">Image</a>
             </p>
         </div>
     )

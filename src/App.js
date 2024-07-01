@@ -20,7 +20,7 @@ import { getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
 
 function App() {
   const [email, setEmail] = useState(sessionStorage.getItem('email'))
-  const [login, setLogin] = useState(false)
+  const [login, setLogin] = useState(sessionStorage.getItem('signInSuccess'))
   const [imgUrl, setImgUrl] = useState(sessionStorage.getItem('imgUrl'))
   
   return (
@@ -34,7 +34,7 @@ function App() {
         </Route>
 
         <Route path='/login'>
-          {(sessionStorage.getItem('signInSuccess') != null) ? 
+          {(login != null) ? 
           <Layout>
             <Switch>
               <Route exact path="/login/notes">

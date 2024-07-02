@@ -6,9 +6,10 @@ import { yellow, green, pink, blue } from '@material-ui/core/colors';
 import BackupOutlinedIcon from '@material-ui/icons/BackupOutlined';
 import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 import { db } from '../firebase'
 import { updateDoc, doc } from 'firebase/firestore'
-import UserContext from '../UserContext'
+
 
 const useStyles = makeStyles({
     avatar: {
@@ -115,7 +116,7 @@ export function NoteCard({ note, handleDelete }) {
                     avatar={<Avatar className={classes.avatar}>{note.category[0].toUpperCase()}</Avatar>}
                     action={
                     <IconButton onClick={() => setEdit(true)}>
-                        <DeleteOutline />
+                        <MenuOutlinedIcon />
                     </IconButton>}
                     title={noteTitle}
                     subheader={noteCategory} />

@@ -13,6 +13,7 @@ import Chat from './chatComponents/Chat'
 import ProfilePic from './profilePicComponent/profile'
 import { db, profilePicRef } from './firebase'
 import { getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
+import MyCalendar from './calendarComponents/MyCalendar'
 
 
 
@@ -51,6 +52,9 @@ function App() {
               </Route>
               <Route exact path='/login/profile'>
                 <ProfilePic />
+              </Route>
+              <Route exact path='/login/calendar'>
+                <MyCalendar />
               </Route>
             </Switch>
           </Layout>

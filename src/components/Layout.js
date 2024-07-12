@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Drawer, Typography, Button } from '@material-ui/core'
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { AddCircleOutline, SubjectOutlined, AvTimerOutlined, ChatOutlined, AccountCircleOutlined } from '@material-ui/icons'
+import { AddCircleOutline, SubjectOutlined, AvTimerOutlined, ChatOutlined, AccountCircleOutlined, CalendarTodayOutlined } from '@material-ui/icons'
 
 import { AppBar, Toolbar, Avatar } from '@material-ui/core'
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min'
 import { format } from 'date-fns'
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+
 import UserContext from '../UserContext'
 
 const drawerWidth = 240;
@@ -50,6 +50,7 @@ export function Layout({ children }) {
         {text: 'Create Note', icon: <AddCircleOutline color='secondary' />, path: '/create'},
         {text: 'Pomodoro Timer', icon: <AvTimerOutlined color='secondary' />, path: '/timer'},
         {text: 'Chat', icon: <ChatOutlined color='secondary' />, path: '/chat'},
+        {text: 'Calendar', icon: <CalendarTodayOutlined color='secondary' />, path: '/calendar'},
         {text: 'Profile', icon: <AccountCircleOutlined color='secondary' />, path: '/profile'}
     ];
 

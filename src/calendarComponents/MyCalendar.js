@@ -93,9 +93,7 @@ function MyCalendar() {
             
             addDoc(calendarRef, newEvent).then(() => setRefresh(refresh => !refresh)).then(() => {
                 setEvents([...events, newEvent])
-                setShowModal(false)
-                setSelectedDate(null)
-                setEndDate(null)
+                closeModal()
             })
         }
     }
@@ -104,9 +102,7 @@ function MyCalendar() {
     function deleteEvent() {
         deleteDoc(doc(db, 'Calendar', event.id)).then(() => setRefresh(r => !r)).then(() => {
             setEvents(events.filter(e => e.title != event.title || e.start != event.start || e.end != event.end))
-            setShowModal(false)
-            setSelectedDate(null) 
-            setEndDate(null)
+            closeModal()
         })  
     }
 

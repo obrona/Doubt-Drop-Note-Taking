@@ -42,7 +42,7 @@ export default function Notes() {
       })
     }).then(() => {
       setNotes(notes)
-      sessionStorage.setItem('notes', notes)
+      //sessionStorage.setItem('notes', notes)
     })
 
     return () => setNotes([])

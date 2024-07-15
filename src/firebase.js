@@ -23,5 +23,6 @@ const colRef = collection(db, 'Notes')
 const profilePicRef = collection(db, 'Profile')
 const moduleRef = collection(db, 'Modules')
 const imageDb = getStorage(app)
+const calendarRef = collection(db, 'Calendar')
 
-export { db, colRef, moduleRef, imageDb, profilePicRef }
+export { db, colRef, moduleRef, imageDb, profilePicRef, calendarRef }

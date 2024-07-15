@@ -1,9 +1,11 @@
-import { React, useContext, useState} from 'react'
+import { React, useContext, useState, useEffect} from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
-import { makeStyles, Modal, Card, Typography, TextField, Container, Button } from '@material-ui/core';
+import { makeStyles, Modal, Card, Typography, TextField, Container, Button, setRef } from '@material-ui/core';
 import UserContext from '../UserContext.js'
+import { db, calendarRef } from '../firebase'
+import { getDocs, query, where, deleteDoc, doc, addDoc } from 'firebase/firestore'
 
 const customFormats = {
   dateFormat: 'YYYY-MM-DDTHH:mm', // Define your desired date format
@@ -32,6 +34,11 @@ const useStyles = makeStyles({
 })
 
 
+function timestampToDate(timestamp) {
+    return new Date(timestamp)
+}
+
+
 
 function MyCalendar() {
     const classes = useStyles()
@@ -42,12 +49,29 @@ function MyCalendar() {
     const [eventTitle, setEventTitle] = useState('')
     const [selectedDate, setSelectedDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
+    const [refresh, setRefresh] = useState(null)
+
+    useEffect(() => {
+        const temp = []
+        const q = query(calendarRef, where('email', '==', userContext.email))
+        getDocs(q).then(snapshot => snapshot.docs.forEach(d => temp.push(
+            {
+                id: d.id,
+                title: d.data().title,
+                email: d.data().email,
+                start: d.data().start.toDate(),
+                end: d.data().end.toDate()
+            
+            }
+        ))).then(() => setEvents(temp))
+    }, [refresh])
+    
 
     function selectSlot(slotInfo) {
         setEventTitle('')
-        setShowModal(true)
-        console.log(slotInfo.start)
         setSelectedDate(slotInfo.start)
+        setEndDate(moment(slotInfo.start).add(1, 'hours').toDate())
+        setShowModal(true)
     }
 
     function selectEvent(e) {
@@ -66,20 +90,24 @@ function MyCalendar() {
                 start: selectedDate,
                 end: endDate
             }
-            setEvents([...events, newEvent])
-            setShowModal(false)
-            setSelectedDate(null)
-            setEndDate(null)
             
+            addDoc(calendarRef, newEvent).then(() => setRefresh(refresh => !refresh)).then(() => {
+                setEvents([...events, newEvent])
+                setShowModal(false)
+                setSelectedDate(null)
+                setEndDate(null)
+            })
         }
     }
 
     
     function deleteEvent() {
-        setEvents((events) => events.filter(e => e !== event))
-        setShowModal(false)
-        setSelectedDate(null) 
-        setEndDate(null)       
+        deleteDoc(doc(db, 'Calendar', event.id)).then(() => setRefresh(r => !r)).then(() => {
+            setEvents(events.filter(e => e.title != event.title || e.start != event.start || e.end != event.end))
+            setShowModal(false)
+            setSelectedDate(null) 
+            setEndDate(null)
+        })  
     }
 
     function closeModal() {
@@ -91,11 +119,12 @@ function MyCalendar() {
     }
 
     
+
     return (
         <div style={{height: '90vh'}}>
             <Calendar
                 localizer={localizer}
-                views={['month']}
+                views={['month', 'week']}
                 selectable={true}
                 events={events}
                 onSelectSlot={(slotInfo) => selectSlot(slotInfo)}
@@ -105,7 +134,7 @@ function MyCalendar() {
             <Modal className={classes.modal} open={showModal} onClose={closeModal}>
                 <Container className={classes.card}>
                     <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <Typography style={{margin: '10px 0px 10px 0px'}} variant='h4' color='secondary'>Add/Delete Event</Typography>
+                        <Typography style={{margin: '10px 0px 10px 0px'}} variant='h4' color='secondary'>{(event == null) ? 'Add' : 'Delete'} Event</Typography>
                     </div>
                     <form>
                         <Typography className={classes.title}>Event Title</Typography>
@@ -115,7 +144,7 @@ function MyCalendar() {
                         <TextField
                             className={classes.field}
                             id="datetime-local"
-                            label="Next appointment"
+                            label="Start Time"
                             type="datetime-local"
                             defaultValue={moment(selectedDate).format('YYYY-MM-DDTHH:mm')}
                             variant='outlined' 
@@ -128,7 +157,7 @@ function MyCalendar() {
                             <TextField
                                 className={classes.field}
                                 id="datetime-local"
-                                label="Next appointment"
+                                label="End Time"
                                 type="datetime-local"
                                 defaultValue={moment(endDate).format('YYYY-MM-DDTHH:mm')}
                                 variant='outlined' 

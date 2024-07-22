@@ -160,3 +160,8 @@
     border: 2px solid black;
     
 }
+
+.dark{
+    background:rgba(255, 255, 255, 0.08);
+    color: white;
+}

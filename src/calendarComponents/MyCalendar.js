@@ -95,6 +95,8 @@ function MyCalendar() {
                 setEvents([...events, newEvent])
                 closeModal()
             })
+        } else {
+            alert("Please type in an event title")
         }
     }
 

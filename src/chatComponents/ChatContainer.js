@@ -14,6 +14,15 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min.js'
 import UserContext from '../UserContext.js'
 import { Button } from '@material-ui/core'
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
+
 function ChatContainer({module, setModule}) {
     const userContext = useContext(UserContext)
     const [user, setUser] = useState(userContext.email)
@@ -84,9 +93,9 @@ function ChatContainer({module, setModule}) {
         }
         socketioRef.current.emit('newMessage', newChat)
     }
-    
     return (
         <div>
+            
             <div>
                 <div className='chats_header'>
                     <div>
@@ -98,8 +107,10 @@ function ChatContainer({module, setModule}) {
                     </Button>
                 </div>
                 <ChatLists user={user} chats={chats} />
-                <InputText addMessage={addMessage} addImage={addImage} />
+                <InputText addMessage={addMessage} addImage={addImage}/>
+
             </div>
+       
            
         </div>
     )

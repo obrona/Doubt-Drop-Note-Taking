@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     
   }, card: {
-    height: '60vh',
+    height: '65vh',
     width: '40vh',
     backgroundColor: 'white',
     outline: 'none'

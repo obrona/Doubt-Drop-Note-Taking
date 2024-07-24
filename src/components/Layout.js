@@ -1,4 +1,4 @@
-import React, { useContext,useState } from 'react'
+import React, { useContext,useState,useEffect } from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Drawer, Typography, Button } from '@material-ui/core'
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme) => (
             padding: '40px'
         }, date: {
             flexGrow: 1
+        }, time: {
+            marginLeft: theme.spacing(3),
+            fontSize: '1.25rem',
+            fontWeight: 'bold',
         }, avatar: {
             marginLeft: theme.spacing(2)
         }
@@ -79,6 +83,17 @@ export function Layout({ children }) {
 
 let [currmode, setCurrmode] = useState('light');
 let body = document.querySelector("body");
+const [currentTime, setCurrentTime] = useState(new Date());
+
+ useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer); // Cleanup interval on component unmount
+   }, []);
+
+  const formattedTime = format(currentTime, 'h:mm:ss a');
 
 // const root = document.querySelector(".makeStyles-page-1")
 //const chat = document.querySelector("")
@@ -132,8 +147,11 @@ function change(e){
                 <Toolbar>
                 
                     <Typography className={classes.date}>
-                        Today is {format(new Date(), 'do MMMM y')}
+                         {format(new Date(), 'do MMMM y') } {formattedTime}
                     </Typography>
+                    {/* <Typography>
+                    {formattedTime}
+                    </Typography> */}
                     <Typography>
                         {userContext.email}
                     </Typography>

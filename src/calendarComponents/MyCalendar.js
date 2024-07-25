@@ -2,7 +2,7 @@ import { React, useContext, useState, useEffect} from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
-import { makeStyles, Modal, Card, Typography, TextField, Container, Button, setRef } from '@material-ui/core';
+import { makeStyles, Modal, Card, Typography, TextField, Container, Button, Select, MenuItem } from '@material-ui/core';
 import UserContext from '../UserContext.js'
 import { db, calendarRef } from '../firebase'
 import { getDocs, query, where, deleteDoc, doc, addDoc } from 'firebase/firestore'
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     
   }, card: {
-    height: '65vh',
+    height: '80vh',
     width: '40vh',
     backgroundColor: 'white',
     outline: 'none'
@@ -33,10 +33,7 @@ const useStyles = makeStyles({
   }
 })
 
-
-function timestampToDate(timestamp) {
-    return new Date(timestamp)
-}
+const colors = ['green', 'blue', 'purple', 'red']
 
 
 
@@ -50,6 +47,7 @@ function MyCalendar() {
     const [selectedDate, setSelectedDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
     const [refresh, setRefresh] = useState(null)
+    const [color, setColor] = useState('')
 
     useEffect(() => {
         const temp = []
@@ -59,14 +57,23 @@ function MyCalendar() {
                 id: d.id,
                 title: d.data().title,
                 email: d.data().email,
+                color: d.data().color,
                 start: d.data().start.toDate(),
                 end: d.data().end.toDate()
             
             }
         ))).then(() => setEvents(temp))
     }, [refresh])
-    
 
+    function setEventBackground(event, start, end, isSelected) {
+        console.log(event)
+        return {style:
+            {
+                backgroundColor: event.color
+            }
+        }
+    }
+    
     function selectSlot(slotInfo) {
         setEventTitle('')
         setSelectedDate(slotInfo.start)
@@ -77,16 +84,18 @@ function MyCalendar() {
     function selectEvent(e) {
         setEvent(e)
         setEventTitle(e.title)
+        setColor(e.color)
         setShowModal(true);
         setSelectedDate(e.start)
         setEndDate(e.end)
     }
 
     function addEvent() {
-        if (eventTitle && selectedDate) {
+        if (eventTitle != '' && color != '' && selectedDate) {
             const newEvent = {
                 email: userContext.email,
                 title: eventTitle,
+                color: color,
                 start: selectedDate,
                 end: endDate
             }
@@ -96,7 +105,7 @@ function MyCalendar() {
                 closeModal()
             })
         } else {
-            alert("Please type in an event title")
+            alert("Please type in an event title and select a color")
         }
     }
 
@@ -114,6 +123,7 @@ function MyCalendar() {
         setSelectedDate(null)
         setEndDate(null)
         setShowModal(false)
+        setColor('')
     }
 
     
@@ -125,6 +135,7 @@ function MyCalendar() {
                 views={['month', 'week']}
                 selectable={true}
                 events={events}
+                eventPropGetter={setEventBackground}
                 onSelectSlot={(slotInfo) => selectSlot(slotInfo)}
                 onSelectEvent={(event) => selectEvent(event)}
                 popup
@@ -147,6 +158,7 @@ function MyCalendar() {
                             defaultValue={moment(selectedDate).format('YYYY-MM-DDTHH:mm')}
                             variant='outlined' 
                             fullWidth
+                            disabled={event != null}
                             onChange={e => setSelectedDate(new Date(e.target.value))}
                             InputLabelProps={{
                                 shrink: true,
@@ -160,10 +172,24 @@ function MyCalendar() {
                                 defaultValue={moment(endDate).format('YYYY-MM-DDTHH:mm')}
                                 variant='outlined' 
                                 fullWidth
+                                disabled={event != null}
                                 onChange={e => setEndDate(new Date(e.target.value))}
                                 InputLabelProps={{
                                     shrink: true,
                             }} />
+                            <Typography className={classes.title}>Color</Typography>
+                            <Select 
+                                value={color} 
+                                variant='outlined' 
+                                fullWidth
+                                disabled={event != null} 
+                                onChange={e => setColor(e.target.value)}>
+                               {colors.map((color, idx) => 
+                                   <MenuItem key={idx} value={color}>
+                                       <span style={{color: color}}>{color}</span>
+                                   </MenuItem>
+                               )}
+                            </Select>
                     </form>
                     <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '15px'}}>
                         <Button color='secondary' variant='outlined' onClick={addEvent} disabled={event != null}>Submit</Button>

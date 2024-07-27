@@ -1,0 +1,48 @@
+.cal body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+}
+
+.cal .calculator {
+    background-color: rgba(0, 0, 0, 0.81);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.cal input#display {
+    width: 95%;
+    height: 40px;
+    text-align: right;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 18px;
+}
+
+.cal .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.cal button {
+    padding: 15px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(209, 0, 0);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cal button:hover {
+    background-color: #0056b3;
+}

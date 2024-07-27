@@ -2,7 +2,8 @@ import React, { useContext,useState,useEffect } from 'react'
 import { makeStyles } from '@material-ui/core'
 import { Drawer, Typography, Button } from '@material-ui/core'
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { AddCircleOutline, SubjectOutlined, AvTimerOutlined, ChatOutlined, AccountCircleOutlined, CalendarTodayOutlined,AddCircleOutlineOutlined } from '@material-ui/icons'
+import { AddCircleOutline, SubjectOutlined, AvTimerOutlined, ChatOutlined, AccountCircleOutlined, 
+    CalendarTodayOutlined, AddCircleOutlineOutlined, DialpadOutlined } from '@material-ui/icons'
 
 import { AppBar, Toolbar, Avatar } from '@material-ui/core'
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min'
@@ -71,7 +72,7 @@ export function Layout({ children }) {
         {text: 'Chat', icon: <ChatOutlined color='secondary' />, path: '/chat'},
         {text: 'Calendar', icon: <CalendarTodayOutlined color='secondary' />, path: '/calendar'},
         {text: 'Profile', icon: <AccountCircleOutlined color='secondary' />, path: '/profile'},
-        {text: 'Calculator', icon: <AddCircleOutlineOutlined color='secondary' />, path: '/Calculator'}
+        {text: 'Calculator', icon: <DialpadOutlined color='secondary' />, path: '/Calculator'}
     ];
 
     function signOut() {

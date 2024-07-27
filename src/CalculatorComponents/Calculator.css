@@ -1,4 +1,4 @@
-body {
+.cal body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -7,14 +7,14 @@ body {
     background-color: white;
 }
 
-.calculator {
+.cal .calculator {
     background-color: rgba(0, 0, 0, 0.81);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
 
-input#display {
+.cal input#display {
     width: 95%;
     height: 40px;
     text-align: right;
@@ -25,13 +25,13 @@ input#display {
     font-size: 18px;
 }
 
-.buttons {
+.cal .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
-button {
+.cal button {
     padding: 15px;
     width: 80px;
     border: none;
@@ -43,6 +43,6 @@ button {
     transition: background-color 0.2s;
 }
 
-button:hover {
+.cal button:hover {
     background-color: #0056b3;
 }

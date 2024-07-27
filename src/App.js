@@ -14,6 +14,7 @@ import ProfilePic from './profilePicComponent/profile'
 import { db, profilePicRef } from './firebase'
 import { getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
 import MyCalendar from './calendarComponents/MyCalendar'
+import Calculator from './CalculatorComponents/Cal'
 
 
 
@@ -55,6 +56,9 @@ function App() {
               </Route>
               <Route exact path='/login/calendar'>
                 <MyCalendar />
+              </Route>
+              <Route exact path='/login/calculator'>
+                <Calculator />
               </Route>
             </Switch>
           </Layout>
